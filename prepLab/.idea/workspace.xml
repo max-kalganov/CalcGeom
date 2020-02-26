@@ -23,6 +23,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/utils.py" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -31,9 +32,31 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Python.visualizer">
+  <component name="RunManager" selected="Python.brute_force_alg">
+    <configuration name="brute_force_alg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="prepLab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/brute_force_alg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="prepLab" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,6 +103,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.brute_force_alg" />
         <item itemvalue="Python.visualizer" />
         <item itemvalue="Python.main" />
       </list>
@@ -96,7 +120,7 @@
       <option name="presentableId" value="Default" />
       <updated>1582118378186</updated>
       <workItem from="1582118379566" duration="3545000" />
-      <workItem from="1582715348011" duration="9328000" />
+      <workItem from="1582715348011" duration="13866000" />
     </task>
     <servers />
   </component>
@@ -104,26 +128,34 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1265" height="66" key="GridCell.Tab.0.bottom" timestamp="1582725159734">
+    <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1582730055011">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="1265" height="66" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1582725159734" />
-    <state width="1265" height="66" key="GridCell.Tab.0.center" timestamp="1582725159734">
+    <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
+    <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl" timestamp="1582730052494">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="1265" height="66" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1582725159734" />
-    <state width="1265" height="66" key="GridCell.Tab.0.left" timestamp="1582725159733">
+    <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl/55.27.1311.741@55.27.1311.741" timestamp="1582730052494" />
+    <state width="1269" height="66" key="GridCell.Tab.0.bottom" timestamp="1582730038174">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="1265" height="66" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1582725159733" />
-    <state width="1265" height="66" key="GridCell.Tab.0.right" timestamp="1582725159734">
+    <state width="1269" height="66" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1582730038174" />
+    <state width="1269" height="66" key="GridCell.Tab.0.center" timestamp="1582730038173">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="1265" height="66" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1582725159734" />
-    <state x="199" y="31" key="SettingsEditor" timestamp="1582716726652">
+    <state width="1269" height="66" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1582730038173" />
+    <state width="1269" height="66" key="GridCell.Tab.0.left" timestamp="1582730038172">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="199" y="31" key="SettingsEditor/55.27.1311.741@55.27.1311.741" timestamp="1582716726652" />
+    <state width="1269" height="66" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1582730038172" />
+    <state width="1269" height="66" key="GridCell.Tab.0.right" timestamp="1582730038174">
+      <screen x="55" y="27" width="1311" height="741" />
+    </state>
+    <state width="1269" height="66" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1582730038174" />
+    <state x="199" y="31" key="SettingsEditor" timestamp="1582726157723">
+      <screen x="55" y="27" width="1311" height="741" />
+    </state>
+    <state x="199" y="31" key="SettingsEditor/55.27.1311.741@55.27.1311.741" timestamp="1582726157723" />
     <state x="373" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1582718164593">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -134,8 +166,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/visualizer.py</url>
-          <line>94</line>
+          <line>93</line>
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/brute_force_alg.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -147,6 +184,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/prepLab$main.coverage" NAME="main Coverage Results" MODIFIED="1582126153202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/prepLab$brute_force_alg.coverage" NAME="brute_force_alg Coverage Results" MODIFIED="1582729535423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$visualizer.coverage" NAME="visualizer Coverage Results" MODIFIED="1582725159723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
