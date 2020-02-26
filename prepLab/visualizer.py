@@ -40,7 +40,7 @@ class Visualizer:
         def bind_mouse(event):
             self.canv.delete(self.polygon)
             self.__move_polygon(Dot(event.x, event.y))
-            self.__draw_polygon()
+            self.draw_polygon()
             self.action_func(self)(event)
         self.canv.bind(BUTTON1, bind_mouse)
 
@@ -48,10 +48,10 @@ class Visualizer:
         self.temp_points.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000"))
         self.polygon_dots.append(Dot(x=event.x, y=event.y))
 
-    def __stop_capturing(self, event):
+    def stop_capturing(self, event):
         self.canv.unbind(BUTTON1)
         self.canv.unbind(STOP_KEY)
-        self.__draw_polygon()
+        self.draw_polygon()
         self.__remove_polygon_points()
         self.__bind_move_polygon_and_action()
 
@@ -60,21 +60,20 @@ class Visualizer:
             self.canv.delete(point)
 
     def __set_polygon(self, capture_points: Optional[Callable] = None):
-        if capture_points is None:
-            capture_points = self.__default_capture_points
-        self.canv.bind(BUTTON1, capture_points)
-        self.canv.bind(STOP_KEY, self.__stop_capturing)
+        points_proc = capture_points(self) if capture_points is not None else self.__default_capture_points
+        self.canv.bind(BUTTON1, points_proc)
+        self.canv.bind(STOP_KEY, self.stop_capturing)
         self.canv.pack()
 
-    def __draw_polygon(self):
-        self.polygon = self.canv.create_polygon(list(self.__unroll_dots(self.polygon_dots)),
+    def draw_polygon(self):
+        self.polygon = self.canv.create_polygon(list(self.unroll_dots(self.polygon_dots)),
                                                 outline='gray',
                                                 fill='',
                                                 width=2)
         self.canv.pack()
 
     @staticmethod
-    def __unroll_dots(list_of_dots: List[Dot]) -> Iterable[int]:
+    def unroll_dots(list_of_dots: List[Dot]) -> Iterable[int]:
         for dot in list_of_dots:
             yield dot.x
             yield dot.y
