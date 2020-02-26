@@ -1,1 +1,6 @@
 venv/*
+prepLab/__pycache__/*
+prepLab/.idea/*
+prepLab/**/*.pyc
+
+
