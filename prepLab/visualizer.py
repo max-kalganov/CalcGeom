@@ -3,7 +3,7 @@ from tkinter import *
 from typing import Callable, Optional, List, Iterable
 
 from Models import Dot
-from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY
+from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS
 
 
 class Visualizer:
@@ -22,12 +22,37 @@ class Visualizer:
         self.canv = Canvas(master,
                            width=width,
                            height=height)
+        self.canv.pack()
+
         self.action_func = action_func
-        self.canv.pack(expand=YES, fill=BOTH)
+        self.init_func = init_func
+        self.capt_func = capture_points_func
+
+        self.input_field = Entry(master)
+        self.input_field.pack()
+        # self.input_field.grid(row=0, column=0)
+
+        self.btn = Button(master, text="reinit", command=self.reinit)
+        self.btn.pack()
         init_func(self)
         self.__set_polygon(capture_points=capture_points_func)
         self.canv.focus_set()
         master.mainloop()
+
+    def reinit(self):
+        self.canv.delete("all")
+        self.polygon_dots = []
+        self.temp_points = []
+        self.polygon = None
+        try:
+            entry = int(self.input_field.get())
+            if entry < 0:
+                raise Exception
+        except Exception:
+            entry = DEFAULT_NUM_OF_POINTS
+        self.init_func(self, entry)
+        self.__set_polygon(capture_points=self.capt_func)
+        self.canv.focus_set()
 
     def __move_polygon(self, new_first_dot: Dot):
         x_change = self.polygon_dots[0].x - new_first_dot.x

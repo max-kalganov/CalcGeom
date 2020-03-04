@@ -1,20 +1,21 @@
 import random
 from math import ceil, floor
 from Models import Dot
-from ct import CANVAS_WIDTH, CANVAS_HEIGHT
+from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS
 from visualizer import Visualizer
 
 
 class GridMethod:
     def __init__(self):
-        self.number_of_points =200000
         self.windows_width = 10
-        self.windows = [[[] for j in range(CANVAS_WIDTH//self.windows_width + 1)] for i in range(CANVAS_HEIGHT//self.windows_width + 1)]
         self.colored_points = []
 
-    def init_points_function(self, obj: Visualizer):
+    def init_points_function(self, obj: Visualizer, number_of_points=DEFAULT_NUM_OF_POINTS):
+        self.windows = [[[] for j in range(CANVAS_WIDTH // self.windows_width + 1)] for i in
+                        range(CANVAS_HEIGHT // self.windows_width + 1)]
+
         seen = {}
-        for i in range(self.number_of_points):
+        for i in range(number_of_points):
             x = random.randint(0, CANVAS_WIDTH)
             y = random.randint(0, CANVAS_HEIGHT)
             if x in seen:
