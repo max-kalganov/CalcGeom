@@ -7,7 +7,7 @@ from visualizer import Visualizer
 
 class GridMethod:
     def __init__(self):
-        self.number_of_points =100000
+        self.number_of_points =200000
         self.windows_width = 10
         self.windows = [[[] for j in range(CANVAS_WIDTH//self.windows_width + 1)] for i in range(CANVAS_HEIGHT//self.windows_width + 1)]
         self.colored_points = []
@@ -52,17 +52,17 @@ class GridMethod:
                                            min_x, max_x, min_y, max_y)
 
         if floor(max_x / self.windows_width) != max_x / self.windows_width:
-            self.check_and_decorate_points(vis, old_points, line[ceil(max_x / self.windows_width)],
+            self.check_and_decorate_points(vis, old_points, line[floor(max_x / self.windows_width)],
                                            min_x, max_x, min_y, max_y)
 
     def check_first_or_last_line(self, line_num, vis, old_points, min_x, max_x, min_y, max_y):
-        for border_windows in self.windows[line_num]:
-            for sec_type_window in border_windows[
-                                   ceil(min_x / self.windows_width):floor(max_x / self.windows_width) + 1]:
-                self.check_and_decorate_points(vis, old_points, sec_type_window,
-                                               min_x, max_x, min_y, max_y)
+        border_windows = self.windows[line_num]
+        for sec_type_window in border_windows[
+                               ceil(min_x / self.windows_width):floor(max_x / self.windows_width)]:
+            self.check_and_decorate_points(vis, old_points, sec_type_window,
+                                           min_x, max_x, min_y, max_y)
 
-            self.check_first_and_last_window(vis, old_points, border_windows, min_x, max_x, min_y, max_y)
+        self.check_first_and_last_window(vis, old_points, border_windows, min_x, max_x, min_y, max_y)
 
     def action_decor(self, vis: Visualizer):
         def action(event):
@@ -70,8 +70,8 @@ class GridMethod:
             old_points = set(self.colored_points)
             self.colored_points = []
 
-            for line in self.windows[ceil(min_y / self.windows_width):floor(max_y / self.windows_width) + 1]:
-                for first_type_window in line[ceil(min_x / self.windows_width):floor(max_x / self.windows_width) + 1]:
+            for line in self.windows[ceil(min_y / self.windows_width):floor(max_y / self.windows_width)]:
+                for first_type_window in line[ceil(min_x / self.windows_width):floor(max_x / self.windows_width)]:
                     self.decorate_all_points(vis, old_points, first_type_window)
 
                 self.check_first_and_last_window(vis, old_points, line, min_x, max_x, min_y, max_y)
