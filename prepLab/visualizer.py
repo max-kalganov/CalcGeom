@@ -42,7 +42,8 @@ class Visualizer:
             self.__move_polygon(Dot(event.x, event.y))
             self.draw_polygon()
             self.action_func(self)(event)
-        self.canv.bind(BUTTON1, bind_mouse)
+        # self.canv.bind(BUTTON1, bind_mouse)
+        self.canv.bind(BUTTON1_MOVE, bind_mouse)
 
     def __default_capture_points(self, event):
         self.temp_points.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000"))

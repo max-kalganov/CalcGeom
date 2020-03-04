@@ -6,7 +6,7 @@ from visualizer import Visualizer
 
 
 class BruteForceAlg:
-    number_of_points = 500000
+    number_of_points = 200000
     all_points = []
 
     def init_points_function(self, obj: Visualizer):
