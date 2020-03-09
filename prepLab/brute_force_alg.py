@@ -6,9 +6,9 @@ from visualizer import Visualizer
 
 
 class BruteForceAlg:
-    all_points = []
 
     def init_points_function(self, obj: Visualizer, num_of_points=DEFAULT_NUM_OF_POINTS):
+        self.all_points = []
         for i in range(num_of_points):
             x = random.randint(0, CANVAS_WIDTH)
             y = random.randint(0, CANVAS_HEIGHT)
