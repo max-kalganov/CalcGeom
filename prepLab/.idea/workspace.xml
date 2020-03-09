@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bf87edb0-b846-4292-9084-645acc6217b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/brute_force_alg.py" beforeDir="false" afterPath="$PROJECT_DIR$/brute_force_alg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output_ray_method.py" beforeDir="false" afterPath="$PROJECT_DIR$/output_ray_method.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Python.brute_force_alg">
+  <component name="RunManager" selected="Python.output_ray_method">
     <configuration name="brute_force_alg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="prepLab" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -107,6 +108,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="output_ray_method" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="prepLab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/output_ray_method.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="visualizer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="prepLab" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,6 +154,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.output_ray_method" />
         <item itemvalue="Python.brute_force_alg" />
         <item itemvalue="Python.grid_method" />
         <item itemvalue="Python.visualizer" />
@@ -152,7 +176,7 @@
       <workItem from="1582715348011" duration="13866000" />
       <workItem from="1583321210183" duration="10518000" />
       <workItem from="1583343159558" duration="1103000" />
-      <workItem from="1583776971287" duration="615000" />
+      <workItem from="1583776971287" duration="1989000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -175,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583331638433</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="small changes, add file for output ray method">
+      <created>1583778789860</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583778789860</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,37 +216,38 @@
     <MESSAGE value="rewrite grid method" />
     <MESSAGE value="finish grid method" />
     <MESSAGE value="add reinit button" />
-    <option name="LAST_COMMIT_MESSAGE" value="add reinit button" />
+    <MESSAGE value="small changes, add file for output ray method" />
+    <option name="LAST_COMMIT_MESSAGE" value="small changes, add file for output ray method" />
   </component>
   <component name="WindowStateProjectService">
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1582730055011">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1583331638089">
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1583780275929">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1583331638088" />
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1583780275929" />
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl" timestamp="1582730052494">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl/55.27.1311.741@55.27.1311.741" timestamp="1582730052494" />
-    <state width="632" height="161" key="GridCell.Tab.0.bottom" timestamp="1583344261197">
+    <state width="923" height="152" key="GridCell.Tab.0.bottom" timestamp="1583780221769">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="161" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1583344261197" />
-    <state width="632" height="161" key="GridCell.Tab.0.center" timestamp="1583344261197">
+    <state width="923" height="152" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1583780221769" />
+    <state width="923" height="152" key="GridCell.Tab.0.center" timestamp="1583780221768">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="161" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1583344261197" />
-    <state width="632" height="161" key="GridCell.Tab.0.left" timestamp="1583344261197">
+    <state width="923" height="152" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1583780221768" />
+    <state width="923" height="152" key="GridCell.Tab.0.left" timestamp="1583780221768">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="161" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1583344261197" />
-    <state width="632" height="161" key="GridCell.Tab.0.right" timestamp="1583344261197">
+    <state width="923" height="152" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1583780221768" />
+    <state width="923" height="152" key="GridCell.Tab.0.right" timestamp="1583780221769">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="161" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1583344261197" />
+    <state width="923" height="152" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1583780221769" />
     <state x="199" y="31" key="SettingsEditor" timestamp="1582726157723">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -234,13 +266,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/visualizer.py</url>
-          <line>118</line>
+          <line>121</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/brute_force_alg.py</url>
           <line>23</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/output_ray_method.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -251,6 +288,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/prepLab$output_ray_method.coverage" NAME="output_ray_method Coverage Results" MODIFIED="1583780221747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$main.coverage" NAME="main Coverage Results" MODIFIED="1582126153202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$brute_force_alg.coverage" NAME="brute_force_alg Coverage Results" MODIFIED="1583344211078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$visualizer.coverage" NAME="visualizer Coverage Results" MODIFIED="1582725159723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

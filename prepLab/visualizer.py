@@ -41,6 +41,9 @@ class Visualizer:
 
     def reinit(self):
         self.canv.delete("all")
+        self.canv.unbind(BUTTON1)
+        self.canv.unbind(BUTTON1_MOVE)
+        self.canv.unbind(STOP_KEY)
         self.polygon_dots = []
         self.temp_points = []
         self.polygon = None
