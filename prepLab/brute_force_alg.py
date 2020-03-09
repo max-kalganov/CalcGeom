@@ -1,16 +1,15 @@
 import random
 
 from Models import Dot
-from ct import CANVAS_WIDTH, CANVAS_HEIGHT
+from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS
 from visualizer import Visualizer
 
 
 class BruteForceAlg:
-    number_of_points = 200000
     all_points = []
 
-    def init_points_function(self, obj: Visualizer):
-        for i in range(self.number_of_points):
+    def init_points_function(self, obj: Visualizer, num_of_points=DEFAULT_NUM_OF_POINTS):
+        for i in range(num_of_points):
             x = random.randint(0, CANVAS_WIDTH)
             y = random.randint(0, CANVAS_HEIGHT)
             self.all_points.append(obj.canv.create_rectangle((x, y) * 2))
@@ -57,4 +56,3 @@ if __name__ == '__main__':
     v = Visualizer(init_func=alg.init_points_function,
                    action_func=alg.action_decor,
                    capture_points_func=alg.capture_points_decor)
-
