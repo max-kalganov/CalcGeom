@@ -10,9 +10,9 @@ from visualizer import Visualizer
 class OutputRayMethod:
     def __init__(self):
         self.colored_points = []
-        self.all_points = []
 
     def init_points_function(self, obj: Visualizer, number_of_points=DEFAULT_NUM_OF_POINTS):
+        self.all_points = []
         seen = {}
         for i in range(number_of_points):
             x = random.randint(0, CANVAS_WIDTH)
@@ -37,28 +37,28 @@ class OutputRayMethod:
         return min_x, max_x, min_y, max_y
 
     def is_in_polygon(self, vis: Visualizer, point) -> bool:
-        def func_of_edge(x_pos, x1, y1, x2, y2) -> int:
-            k = (y1 - y2)/(x1 - x2)
-            b = y2 - k*x2
-            return k * x_pos + b
+        def is_on_left_by_func(point_x, point_y, prev_node: Dot, cur_node: Dot) -> bool:
+            k = (prev_node.y - cur_node.y) / (prev_node.x - cur_node.x)
+            b = cur_node.y - k * cur_node.x
+            func_res = k * point_x + b
+            return (k > 0 and point_y > func_res) or (k < 0 and point_y < func_res)
+
+        def is_point_on_left(point_x: int, point_y: int, prev_node: Dot, cur_node: Dot):
+            x_min, x_max, y_min, y_max = self.get_min_max_coords(prev_node, cur_node)
+            return point_x <= x_max \
+                   and y_min <= point_y <= y_max \
+                   and is_on_left_by_func(point_x, point_y, prev_node, cur_node)
 
         point_x, point_y = vis.canv.coords(point)[:2]
         prev_node_pos = vis.polygon_dots[0]
         crossed_edges = 0
         for node_pos in vis.polygon_dots[1:]:
-            x_min, x_max, y_min, y_max = self.get_min_max_coords(prev_node_pos, node_pos)
-            if point_x <= x_max \
-                and y_min <= point_y <= y_max \
-                and point_y <= func_of_edge(point_x, prev_node_pos.x, prev_node_pos.y, node_pos.x, node_pos.y):
+            if is_point_on_left(point_x, point_y, prev_node_pos, node_pos):
                 crossed_edges += 1
 
             prev_node_pos = node_pos
-
         node_pos = vis.polygon_dots[0]
-        x_min, x_max, y_min, y_max = self.get_min_max_coords(prev_node_pos, node_pos)
-        if point_x < x_max \
-                and y_min < point_y < y_max \
-                and point_y < func_of_edge(point_x, prev_node_pos.x, prev_node_pos.y, node_pos.x, node_pos.y):
+        if is_point_on_left(point_x, point_y, prev_node_pos, node_pos):
             crossed_edges += 1
 
         return crossed_edges % 2 != 0

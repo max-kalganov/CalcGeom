@@ -176,6 +176,7 @@
       <workItem from="1583321210183" duration="10518000" />
       <workItem from="1583343159558" duration="1103000" />
       <workItem from="1583776971287" duration="5441000" />
+      <workItem from="1583824267714" duration="1862000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -247,38 +248,38 @@
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1583780463066">
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1583783950490">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1583780463066" />
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1583783950490" />
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl" timestamp="1582730052494">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl/55.27.1311.741@55.27.1311.741" timestamp="1582730052494" />
-    <state width="632" height="164" key="GridCell.Tab.0.bottom" timestamp="1583783915198">
+    <state width="632" height="164" key="GridCell.Tab.0.bottom" timestamp="1583826135092">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="164" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1583783915198" />
-    <state width="632" height="164" key="GridCell.Tab.0.center" timestamp="1583783915197">
+    <state width="632" height="164" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1583826135092" />
+    <state width="632" height="164" key="GridCell.Tab.0.center" timestamp="1583826135092">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="164" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1583783915197" />
-    <state width="632" height="164" key="GridCell.Tab.0.left" timestamp="1583783915197">
+    <state width="632" height="164" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1583826135092" />
+    <state width="632" height="164" key="GridCell.Tab.0.left" timestamp="1583826135092">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="164" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1583783915197" />
-    <state width="632" height="164" key="GridCell.Tab.0.right" timestamp="1583783915198">
+    <state width="632" height="164" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1583826135092" />
+    <state width="632" height="164" key="GridCell.Tab.0.right" timestamp="1583826135092">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="164" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1583783915198" />
+    <state width="632" height="164" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1583826135092" />
     <state x="199" y="31" key="SettingsEditor" timestamp="1582726157723">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="199" y="31" key="SettingsEditor/55.27.1311.741@55.27.1311.741" timestamp="1582726157723" />
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1583780465887">
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1583783952814">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1583780465887" />
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1583783952814" />
     <state x="373" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1582718164593">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -299,13 +300,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/output_ray_method.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/output_ray_method.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="26" />
+          <line>51</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -316,7 +312,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/prepLab$output_ray_method.coverage" NAME="output_ray_method Coverage Results" MODIFIED="1583783915190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/prepLab$output_ray_method.coverage" NAME="output_ray_method Coverage Results" MODIFIED="1583826135079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$main.coverage" NAME="main Coverage Results" MODIFIED="1582126153202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$brute_force_alg.coverage" NAME="brute_force_alg Coverage Results" MODIFIED="1583780420269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$visualizer.coverage" NAME="visualizer Coverage Results" MODIFIED="1582725159723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
