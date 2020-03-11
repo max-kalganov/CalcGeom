@@ -71,27 +71,12 @@ class OutputRayMethod:
 
         def is_on_left_by_func_shewchuk(point_x: int, point_y: int, prev_node: Dot, cur_node: Dot, cur_node_idx: int) -> bool:
             if prev_node.x != cur_node.x:
-                k = (prev_node.y - cur_node.y) / (prev_node.x - cur_node.x)
-                b = cur_node.y - k * cur_node.x
-                func_res = k * point_x + b
-                is_fit_func = (k > 0 and point_y >= func_res) or (k < 0 and point_y <= func_res)
+                if prev_node.y < cur_node.y:
+                    is_fit_func = orient2d(prev_node.get_tuple(), cur_node.get_tuple(), (point_x, point_y)) >= 0
+                else:
+                    is_fit_func = orient2d(cur_node.get_tuple(), prev_node.get_tuple(), (point_x, point_y)) >= 0
             else:
                 is_fit_func = True
-
-            if prev_node.x != cur_node.x:
-                if prev_node.y < cur_node.y:
-                    is_fit_func_2 = orient2d(prev_node.get_tuple(), cur_node.get_tuple(), (point_x, point_y)) <= 0
-                else:
-                    is_fit_func_2 = orient2d(cur_node.get_tuple(), prev_node.get_tuple(), (point_x, point_y)) <= 0
-            else:
-                is_fit_func_2 = True
-
-            if is_fit_func_2 != is_fit_func:
-                a = "here"
-
-
-            # is_fit_func = prev_node.x == cur_node.x \
-            #               or orient2d(prev_node.get_tuple(), cur_node.get_tuple(), (point_x, point_y)) > 0
 
             return (is_fit_func and point_y != prev_node.y)\
                    and (point_y != cur_node.y
