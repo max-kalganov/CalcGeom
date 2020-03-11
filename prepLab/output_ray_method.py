@@ -2,6 +2,7 @@ import random
 from math import ceil, floor
 from typing import Tuple
 import numpy as np
+from geompreds import orient2d
 
 from Models import Dot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS
@@ -56,12 +57,52 @@ class OutputRayMethod:
                    and (point_y != cur_node.y
                         or is_on_left_if_equal(cur_node, cur_node_idx))
 
+        def is_on_left_if_equal_shewchuk(target_point_x: int, target_point_y:int, node_that_equal: Dot, node_idx)\
+                -> bool:
+            prev_point = vis.polygon_dots[node_idx-1]
+            next_point = vis.polygon_dots[(node_idx+1) % len(vis.polygon_dots)]
+
+            return np.sign(orient2d((target_point_x, target_point_y),
+                                    node_that_equal.get_tuple(),
+                                    prev_point.get_tuple())) \
+                 * np.sign(orient2d((target_point_x, target_point_y),
+                                    node_that_equal.get_tuple(),
+                                    next_point.get_tuple())) < 0
+
+        def is_on_left_by_func_shewchuk(point_x: int, point_y: int, prev_node: Dot, cur_node: Dot, cur_node_idx: int) -> bool:
+            if prev_node.x != cur_node.x:
+                k = (prev_node.y - cur_node.y) / (prev_node.x - cur_node.x)
+                b = cur_node.y - k * cur_node.x
+                func_res = k * point_x + b
+                is_fit_func = (k > 0 and point_y >= func_res) or (k < 0 and point_y <= func_res)
+            else:
+                is_fit_func = True
+
+            if prev_node.x != cur_node.x:
+                if prev_node.y < cur_node.y:
+                    is_fit_func_2 = orient2d(prev_node.get_tuple(), cur_node.get_tuple(), (point_x, point_y)) <= 0
+                else:
+                    is_fit_func_2 = orient2d(cur_node.get_tuple(), prev_node.get_tuple(), (point_x, point_y)) <= 0
+            else:
+                is_fit_func_2 = True
+
+            if is_fit_func_2 != is_fit_func:
+                a = "here"
+
+
+            # is_fit_func = prev_node.x == cur_node.x \
+            #               or orient2d(prev_node.get_tuple(), cur_node.get_tuple(), (point_x, point_y)) > 0
+
+            return (is_fit_func and point_y != prev_node.y)\
+                   and (point_y != cur_node.y
+                        or is_on_left_if_equal_shewchuk(point_x, point_y, cur_node, cur_node_idx))
+
         def is_point_on_left(point_x: int, point_y: int, prev_node: Dot, cur_node: Dot, cur_node_idx: int):
             x_min, x_max, y_min, y_max = self.get_min_max_coords(prev_node, cur_node)
 
             return point_x <= x_max \
                    and y_min <= point_y <= y_max \
-                   and is_on_left_by_func(point_x, point_y, prev_node, cur_node, cur_node_idx)
+                   and is_on_left_by_func_shewchuk(point_x, point_y, prev_node, cur_node, cur_node_idx)
 
         point_x, point_y = vis.canv.coords(point)[:2]
         prev_node_pos = vis.polygon_dots[0]
