@@ -10,7 +10,7 @@ STOP_KEY = 's'
 #################
 # settings
 #################
-BUTTON_HEIGHT = 150
+BUTTON_HEIGHT = 200
 BUTTON_WIDHT = 200
 CANVAS_WIDTH = 1360
 CANVAS_HEIGHT = 800 - BUTTON_HEIGHT
