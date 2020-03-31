@@ -3,7 +3,8 @@ from tkinter import *
 from typing import Callable, Optional, List, Iterable
 
 from Models import Dot
-from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS
+from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS, \
+    DEFAULT_NUM_OF_POINTS_CONVEXHULL
 
 
 class Visualizer:
@@ -106,6 +107,51 @@ class Visualizer:
         for dot in list_of_dots:
             yield dot.x
             yield dot.y
+
+
+class VisualizerConvexHull:
+    def __init__(self,
+                 init_func: Callable,
+                 action_func: Callable,
+                 width=CANVAS_WIDTH,
+                 height=CANVAS_HEIGHT):
+        master = Tk()
+        master.title("Calc. Geom.")
+        self.canv = Canvas(master,
+                           width=width,
+                           height=height)
+        self.canv.pack()
+
+        self.action_func = action_func
+        self.init_func = init_func
+
+        self.input_field = Entry(master)
+        self.input_field.pack()
+        # self.input_field.grid(row=0, column=0)
+
+        self.gen_btn = Button(master, text="reinit", command=self.reinit)
+        self.gen_btn.pack()
+
+        self.run_btn = Button(master, text="run", command=self.run)
+        self.run_btn.pack()
+
+        init_func(self)
+        self.canv.focus_set()
+        master.mainloop()
+
+    def run(self):
+        self.action_func(self)
+
+    def reinit(self):
+        self.canv.delete("all")
+        try:
+            entry = int(self.input_field.get())
+            if entry < 0:
+                raise Exception
+        except Exception:
+            entry = DEFAULT_NUM_OF_POINTS_CONVEXHULL
+        self.init_func(self, entry)
+        self.canv.focus_set()
 
 
 if __name__ == '__main__':
