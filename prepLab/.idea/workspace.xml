@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bf87edb0-b846-4292-9084-645acc6217b6" name="Default Changelist" comment="replace List[List[int]] with List[Dot], make VDedges reach the borders">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/voronoi_diagram.py" beforeDir="false" afterPath="$PROJECT_DIR$/voronoi_diagram.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +181,7 @@
       <workItem from="1583946829552" duration="2871000" />
       <workItem from="1585156110160" duration="253000" />
       <workItem from="1585653291850" duration="9875000" />
-      <workItem from="1585814319286" duration="25307000" />
+      <workItem from="1585814319286" duration="26111000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -303,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585856099096</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add start_point prop">
+      <created>1585857053231</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1585857053231</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,17 +333,18 @@
     <MESSAGE value="replace List[List[int]] with List[Dot], make VDedges reach the borders" />
     <MESSAGE value="add intersection function, in_borders and others" />
     <MESSAGE value="get_border_points from CH" />
-    <option name="LAST_COMMIT_MESSAGE" value="get_border_points from CH" />
+    <MESSAGE value="add start_point prop" />
+    <option name="LAST_COMMIT_MESSAGE" value="add start_point prop" />
   </component>
   <component name="WindowStateProjectService">
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1582730055011">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585856115973">
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585857053022">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585856115973" />
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585857053022" />
     <state x="175" y="84" width="1050" height="624" key="DiffContextDialog" timestamp="1585652963770">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -404,11 +411,6 @@
           <url>file://$PROJECT_DIR$/output_ray_method.py</url>
           <line>73</line>
           <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/voronoi_diagram.py</url>
-          <line>134</line>
-          <option name="timeStamp" value="51" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

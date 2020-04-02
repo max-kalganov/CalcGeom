@@ -1,9 +1,9 @@
 import random
 from typing import List, Tuple, Any, Dict
 
-from Models import VDEdge, Dot
+from Models import VDEdge, Dot, intersection, FloatDot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS_CONVEXHULL
-from utils import get_main_dot
+from utils import get_main_dot, get_border_points, get_vdedges, dist, main_dot_to_edge
 from visualizer import VisualizerConvexHull
 import numpy as np
 from scipy.spatial import ConvexHull
@@ -41,31 +41,32 @@ class VoronoiDiagram:
         self.all_points = sorted(self.all_points, key=lambda point: (point.x, point.y))
 
     def action_decor(self, vis: VisualizerConvexHull):
-        vor, _ = self._get_vor_and_conv(self.all_points)
-        self._draw_vor(vor, vis)
+        self._get_vor_and_conv(self.all_points)
+        self._draw_vor(vis)
 
-    def _get_vor_and_conv(self, points: List[Dot]) -> Tuple[List[VDEdge], List[Dot]]:
+    def _get_vor_and_conv(self, points: List[Dot]) -> List[Dot]:
         if len(points) < 3:
             conv_points = points
-            vor_points = self._get_vor(points)
-            return vor_points, conv_points
+            self._get_vor(points)
+            return conv_points
 
         s1, s2 = self._divide_points(points)
-        vor_s1, conv_s1 = self._get_vor_and_conv(s1)
-        vor_s2, conv_s2 = self._get_vor_and_conv(s2)
+        conv_s1 = self._get_vor_and_conv(s1)
+        conv_s2 = self._get_vor_and_conv(s2)
         merged_conv, start_left_ind, start_right_ind,\
             finish_left_ind, finish_right_ind = self._merge_conv(conv_s1, conv_s2)
-        merged_vor = self._merge_vor(vor_s1, vor_s2,
-                                     conv_s1, conv_s2,
-                                     start_left_ind, start_right_ind,
-                                     finish_left_ind, finish_right_ind)
-        return merged_vor, merged_conv
+        self._merge_vor(conv_s1, conv_s2,
+                        start_left_ind, start_right_ind,
+                        finish_left_ind, finish_right_ind)
+        return merged_conv
 
     def _get_vor(self, points: List[Dot]) -> List[VDEdge]:
         if len(points) == 1:
             return []
         assert len(points) == 2
-        return [VDEdge(points[0], points[1])]
+        new_vdedge = VDEdge(points[0], points[1])
+        get_vdedges(points[0]).append(new_vdedge)
+        get_vdedges(points[1]).append(new_vdedge)
 
     @staticmethod
     def _divide_points(points: List[Dot]) -> Tuple[List[Dot], List[Dot]]:
@@ -92,18 +93,64 @@ class VoronoiDiagram:
             if y_count == len(full) or x_count == len(full):
                 return full, 0, 0, 0, 0
             raise e
-        return [full[point] for point in hull.vertices], 0, 0, 0, 0
+        full_conv = [full[point] for point in hull.vertices]
+        sl_ind, sr_ind, fl_ind, fr_ind = get_border_points(full_conv, conv_s1, conv_s2)
+        return full_conv, sl_ind, sr_ind, fl_ind, fr_ind
 
-    def _merge_vor(self, vor_s1: List[VDEdge], vor_s2: List[VDEdge],
-                   conv_s1: List[Dot], conv_s2: List[Dot],
+    def _merge_vor(self, conv_s1: List[Dot], conv_s2: List[Dot],
                    start_left_ind: int, start_right_ind: int,
-                   finish_left_ind: int, finish_right_ind: int) -> List[VDEdge]:
+                   finish_left_ind: int, finish_right_ind: int):
+        cur_left_ind = start_left_ind
+        cur_right_ind = start_right_ind
 
-        return vor_s1 + vor_s2
+        def next_point(left: bool) -> Dot:
+            global cur_left_ind, cur_right_ind
+            if left:
+                next_p = conv_s1[cur_left_ind]
+                cur_left_ind = (cur_left_ind + 1)%len(conv_s1)
+            else:
+                next_p = conv_s2[cur_right_ind]
+                cur_right_ind = (cur_right_ind - 1)%len(conv_s2)
+            return next_p
 
-    def _draw_vor(self, vor: List[VDEdge], vis: VisualizerConvexHull):
-        for edge in vor:
-            vis.canv.create_line(edge.f_point.x, edge.f_point.y, edge.s_point.x, edge.s_point.y)
+        def find_edge(cur_point: Dot, cur_edge: VDEdge) -> Tuple[FloatDot, VDEdge]:
+            for edge in get_vdedges(cur_point):
+                intersec = intersection(cur_edge, edge)
+                if intersec is not None:
+                    return intersec, edge
+
+        cur_left_point = next_point(True)
+        cur_right_point = next_point(False)
+
+        cur_edge = VDEdge(cur_left_point, cur_right_point)
+        while cur_left_point != conv_s1[finish_left_ind] or cur_right_point != conv_s2[finish_right_ind]:
+            intersec_l, e_l = find_edge(cur_left_point, cur_edge)
+            intersec_r, e_r = find_edge(cur_right_point, cur_edge)
+            l_dist = dist(intersec_l, cur_edge.first_point)
+            r_dist = dist(intersec_r, cur_edge.first_point)
+            if l_dist < r_dist:
+                cur_edge.set_second_point(intersec_l)
+                cur_left_point = next_point(True)
+                get_vdedges(cur_left_point).append(cur_edge)
+                cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
+            elif r_dist < l_dist:
+                cur_edge.set_second_point(intersec_r)
+                cur_right_point = next_point(False)
+                get_vdedges(cur_right_point).append(cur_edge)
+                cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_r)
+            else:
+                assert False, "work with l_dist = r_dist"
+        # TODO: clear extra edges
+        get_vdedges(cur_left_point).append(cur_edge)
+        get_vdedges(cur_right_point).append(cur_edge)
+
+    def _draw_vor(self, vis: VisualizerConvexHull):
+        seen = set()
+        for list_of_edges in main_dot_to_edge.values():
+            for edge in list_of_edges:
+                if edge not in seen:
+                    seen.add(edge)
+                    vis.canv.create_line(edge.first_point.x, edge.first_point.y, edge.second_point.x, edge.second_point.y)
         vis.canv.pack()
 
 
