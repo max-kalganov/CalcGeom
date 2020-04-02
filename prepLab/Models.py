@@ -23,21 +23,27 @@ class VDEdge:
     first_point: FloatDot
     second_point: FloatDot
 
-    def __init__(self, point1: Dot, point2: Dot):
+    def __init__(self, point1: Dot, point2: Dot, start_point: Optional[FloatDot] = None):
         between_point = FloatDot((point1.x + point2.x)/2, (point1.y + point2.y)/2)
         if point1.y == point2.y:
             self.slope = None
             self.b = None
             self.first_point = FloatDot(between_point.x, 0)
-            self.second_point = FloatDot(between_point.x, CANVAS_HEIGHT)
+            self.second_point = FloatDot(start_point.x, CANVAS_HEIGHT) if start_point \
+                else FloatDot(between_point.x, CANVAS_HEIGHT)
         elif point1.x == point2.x:
             self.slope = 0
             self.b = between_point.y
             self.first_point = FloatDot(0, between_point.y)
-            self.second_point = FloatDot(CANVAS_WIDTH, between_point.y)
+            self.second_point = FloatDot(CANVAS_WIDTH, start_point.y) if start_point\
+                else FloatDot(CANVAS_WIDTH, between_point.y)
         else:
             self.slope = (point1.x - point2.x)/(point2.y - point1.y)
-            self.b = between_point.y - self.slope * between_point.x
+            if start_point:
+                self.b = start_point.y - self.slope * start_point.x
+            else:
+                self.b = between_point.y - self.slope * between_point.x
+
             if self.slope > 0:
                 x = -self.b/self.slope
                 if 0 <= x <= CANVAS_WIDTH:
@@ -61,6 +67,7 @@ class VDEdge:
                     self.second_point = FloatDot(0, self.b)
                 else:
                     self.second_point = FloatDot((CANVAS_HEIGHT - self.b) / self.slope, CANVAS_HEIGHT)
+        self.first_point = start_point if start_point else self.first_point
         self._check_points(self.first_point, self.second_point)
 
     def set_first_point(self, point: FloatDot):
