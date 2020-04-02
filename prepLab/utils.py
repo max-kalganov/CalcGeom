@@ -4,7 +4,7 @@ from Models import Dot, FloatDot, VDEdge
 
 main_dots: Dict[Tuple[int, int], Dot] = {}
 mid_dots: Dict[Tuple[float, float], FloatDot] = {}
-main_dot_to_edge: Dict[Dot, List[VDEdge]] = {}
+main_dot_to_edge: Dict[Tuple[int, int], List[VDEdge]] = {}
 
 
 def get_main_dot(x: int, y: int) -> Dot:
@@ -24,8 +24,8 @@ def get_mid_dot(x: float, y: float) -> FloatDot:
 
 
 def get_vdedges(point: Dot) -> List[VDEdge]:
-    main_dot_to_edge.setdefault(point, [])
-    return main_dot_to_edge[point]
+    main_dot_to_edge.setdefault(point.get_tuple(), [])
+    return main_dot_to_edge[point.get_tuple()]
 
 
 def get_border_points(full_conv: List[Dot], conv_s1: List[Dot], conv_s2: List[Dot]) -> Tuple[int, int, int, int]:

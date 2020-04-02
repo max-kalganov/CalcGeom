@@ -100,17 +100,15 @@ class VoronoiDiagram:
     def _merge_vor(self, conv_s1: List[Dot], conv_s2: List[Dot],
                    start_left_ind: int, start_right_ind: int,
                    finish_left_ind: int, finish_right_ind: int):
-        cur_left_ind = start_left_ind
-        cur_right_ind = start_right_ind
+        indices = [start_left_ind, start_right_ind]
 
         def next_point(left: bool) -> Dot:
-            global cur_left_ind, cur_right_ind
             if left:
-                next_p = conv_s1[cur_left_ind]
-                cur_left_ind = (cur_left_ind + 1)%len(conv_s1)
+                next_p = conv_s1[indices[0]]
+                indices[0] = (indices[0] + 1)%len(conv_s1)
             else:
-                next_p = conv_s2[cur_right_ind]
-                cur_right_ind = (cur_right_ind - 1)%len(conv_s2)
+                next_p = conv_s2[indices[1]]
+                indices[1] = (indices[1] - 1)%len(conv_s2)
             return next_p
 
         def find_edge(cur_point: Dot, cur_edge: VDEdge) -> Tuple[FloatDot, VDEdge]:
@@ -118,9 +116,10 @@ class VoronoiDiagram:
                 intersec = intersection(cur_edge, edge)
                 if intersec is not None:
                     return intersec, edge
+            assert False, "edge not found"
 
-        cur_left_point = next_point(True)
-        cur_right_point = next_point(False)
+        cur_left_point = next_point(left=True)
+        cur_right_point = next_point(left=False)
 
         cur_edge = VDEdge(cur_left_point, cur_right_point)
         while cur_left_point != conv_s1[finish_left_ind] or cur_right_point != conv_s2[finish_right_ind]:
@@ -130,12 +129,12 @@ class VoronoiDiagram:
             r_dist = dist(intersec_r, cur_edge.first_point)
             if l_dist < r_dist:
                 cur_edge.set_second_point(intersec_l)
-                cur_left_point = next_point(True)
+                cur_left_point = next_point(left=True)
                 get_vdedges(cur_left_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
             elif r_dist < l_dist:
                 cur_edge.set_second_point(intersec_r)
-                cur_right_point = next_point(False)
+                cur_right_point = next_point(left=False)
                 get_vdedges(cur_right_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_r)
             else:
