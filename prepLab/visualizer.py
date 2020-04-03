@@ -109,15 +109,15 @@ class Visualizer:
             yield dot.y
 
 
-class VisualizerConvexHull:
+class SimpleVisualizer:
     def __init__(self,
                  init_func: Callable,
                  action_func: Callable,
                  width=CANVAS_WIDTH,
                  height=CANVAS_HEIGHT):
-        master = Tk()
-        master.title("Calc. Geom.")
-        self.canv = Canvas(master,
+        self.master = Tk()
+        self.master.title("Calc. Geom.")
+        self.canv = Canvas(self.master,
                            width=width,
                            height=height)
         self.canv.pack()
@@ -125,32 +125,24 @@ class VisualizerConvexHull:
         self.action_func = action_func
         self.init_func = init_func
 
-        self.input_field = Entry(master)
-        self.input_field.pack()
-        # self.input_field.grid(row=0, column=0)
-
-        self.gen_btn = Button(master, text="reinit", command=self.reinit)
+        self.gen_btn = Button(self.master, text="reinit", command=self.reinit)
         self.gen_btn.pack()
 
-        self.run_btn = Button(master, text="run", command=self.run)
+        self.run_btn = Button(self.master, text="run", command=self.run)
         self.run_btn.pack()
 
         init_func(self)
         self.canv.focus_set()
-        master.mainloop()
+
+    def run_loop(self):
+        self.master.mainloop()
 
     def run(self):
         self.action_func(self)
 
     def reinit(self):
         self.canv.delete("all")
-        try:
-            entry = int(self.input_field.get())
-            if entry < 0:
-                raise Exception
-        except Exception:
-            entry = DEFAULT_NUM_OF_POINTS_CONVEXHULL
-        self.init_func(self, entry)
+        self.init_func(self)
         self.canv.focus_set()
 
 
