@@ -1,9 +1,9 @@
 import random
-from typing import List, Tuple, Any, Dict
+from typing import List, Tuple, Any, Dict, Optional
 
 from Models import VDEdge, Dot, intersection, FloatDot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS_CONVEXHULL
-from utils import get_main_dot, get_border_points, get_vdedges, dist, main_dot_to_edge
+from utils import get_border_points, get_vdedges, dist, main_dot_to_edge, clear
 from visualizer import VisualizerConvexHull
 import numpy as np
 from scipy.spatial import ConvexHull
@@ -36,7 +36,7 @@ class VoronoiDiagram:
                 seen.setdefault(x, {y})
 
             obj.canv.create_rectangle((x, y) * 2)
-            self.all_points.append(get_main_dot(x, y))
+            self.all_points.append(Dot(x, y))
 
         self.all_points = sorted(self.all_points, key=lambda point: (point.x, point.y))
 
@@ -111,32 +111,65 @@ class VoronoiDiagram:
                 indices[1] = (indices[1] - 1)%len(conv_s2)
             return next_p
 
-        def find_edge(cur_point: Dot, cur_edge: VDEdge) -> Tuple[FloatDot, VDEdge]:
-            for edge in get_vdedges(cur_point):
+        def find_edge(cur_point: Dot, cur_edge: VDEdge, cur_search_edge: VDEdge, next: bool) \
+                -> Tuple[Optional[FloatDot], Optional[VDEdge]]:
+            vdedges = get_vdedges(cur_point)
+            start_ind = 0 if cur_search_edge is None else vdedges.index(cur_search_edge)
+            start_ind += next
+            if start_ind >= len(vdedges):
+                return None, None
+            for edge in vdedges[start_ind+1:]:
                 intersec = intersection(cur_edge, edge)
                 if intersec is not None:
                     return intersec, edge
-            assert False, "edge not found"
+            return None, None
 
         cur_left_point = next_point(left=True)
         cur_right_point = next_point(left=False)
 
         cur_edge = VDEdge(cur_left_point, cur_right_point)
+        e_l = None
+        e_r = None
+        next_l = False
+        next_r = False
         while cur_left_point != conv_s1[finish_left_ind] or cur_right_point != conv_s2[finish_right_ind]:
-            intersec_l, e_l = find_edge(cur_left_point, cur_edge)
-            intersec_r, e_r = find_edge(cur_right_point, cur_edge)
-            l_dist = dist(intersec_l, cur_edge.first_point)
-            r_dist = dist(intersec_r, cur_edge.first_point)
-            if l_dist < r_dist:
+            intersec_l, e_l = find_edge(cur_left_point, cur_edge, e_l, next_l)
+            intersec_r, e_r = find_edge(cur_right_point, cur_edge, e_r, next_r)
+            next_l = False
+            next_r = False
+            if intersec_r is not None\
+                and intersec_l is not None\
+                and (not VDEdge.in_map(intersec_l) or not VDEdge.in_map(intersec_r)):
+                l_dist = 0
+                r_dist = 0
+                if intersec_l.y < intersec_r.y:
+                    r_dist += 1
+                else:
+                    l_dist += 1
+            else:
+                l_dist = None if intersec_l is None else dist(intersec_l, cur_edge.first_point)
+                r_dist = None if intersec_r is None else dist(intersec_r, cur_edge.first_point)
+            assert not (l_dist is None and r_dist is None), f"two None"
+            if r_dist is None or (l_dist is not None and l_dist < r_dist):
+                if intersec_l.y < cur_edge.first_point.y:
+                    intersec_l = cur_edge.between_point
+                next_l = True
+                cur_edge.return_first_point_from_temp()
                 cur_edge.set_second_point(intersec_l)
                 cur_left_point = next_point(left=True)
                 get_vdedges(cur_left_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
-            elif r_dist < l_dist:
+                cur_edge.make_first_point_border()
+            elif l_dist is None or (r_dist is not None and r_dist < l_dist):
+                if intersec_r.y < cur_edge.first_point.y:
+                    intersec_r = cur_edge.between_point
+                next_r = True
+                cur_edge.return_first_point_from_temp()
                 cur_edge.set_second_point(intersec_r)
                 cur_right_point = next_point(left=False)
                 get_vdedges(cur_right_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_r)
+                cur_edge.make_first_point_border()
             else:
                 assert False, "work with l_dist = r_dist"
         # TODO: clear extra edges
@@ -151,6 +184,7 @@ class VoronoiDiagram:
                     seen.add(edge)
                     vis.canv.create_line(edge.first_point.x, edge.first_point.y, edge.second_point.x, edge.second_point.y)
         vis.canv.pack()
+        main_dot_to_edge.clear()
 
 
 if __name__ == '__main__':

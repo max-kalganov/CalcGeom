@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bf87edb0-b846-4292-9084-645acc6217b6" name="Default Changelist" comment="finissh first version">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/voronoi_diagram.py" beforeDir="false" afterPath="$PROJECT_DIR$/voronoi_diagram.py" afterDir="false" />
     </list>
@@ -183,6 +184,8 @@
       <workItem from="1585156110160" duration="253000" />
       <workItem from="1585653291850" duration="9875000" />
       <workItem from="1585814319286" duration="26686000" />
+      <workItem from="1585900865173" duration="3659000" />
+      <workItem from="1585909232542" duration="10343000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -350,10 +353,10 @@
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585858342256">
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585858428949">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585858342256" />
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585858428949" />
     <state x="175" y="84" width="1050" height="624" key="DiffContextDialog" timestamp="1585652963770">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -362,30 +365,30 @@
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl/55.27.1311.741@55.27.1311.741" timestamp="1585156360292" />
-    <state width="632" height="201" key="GridCell.Tab.0.bottom" timestamp="1585858406123">
+    <state width="632" height="201" key="GridCell.Tab.0.bottom" timestamp="1585918297165">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1585858406123" />
-    <state width="632" height="201" key="GridCell.Tab.0.center" timestamp="1585858406123">
+    <state width="632" height="201" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1585918297165" />
+    <state width="632" height="201" key="GridCell.Tab.0.center" timestamp="1585918297164">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1585858406123" />
-    <state width="632" height="201" key="GridCell.Tab.0.left" timestamp="1585858406123">
+    <state width="632" height="201" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1585918297164" />
+    <state width="632" height="201" key="GridCell.Tab.0.left" timestamp="1585918297164">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1585858406123" />
-    <state width="632" height="201" key="GridCell.Tab.0.right" timestamp="1585858406123">
+    <state width="632" height="201" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1585918297164" />
+    <state width="632" height="201" key="GridCell.Tab.0.right" timestamp="1585918297165">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1585858406123" />
+    <state width="632" height="201" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1585918297165" />
     <state x="199" y="31" key="SettingsEditor" timestamp="1583938667309">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="199" y="31" key="SettingsEditor/55.27.1311.741@55.27.1311.741" timestamp="1583938667309" />
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1585856130190">
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1585858431063">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1585856130190" />
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1585858431063" />
     <state x="363" y="27" width="685" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585661266412">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -423,13 +426,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/voronoi_diagram.py</url>
-          <line>105</line>
-          <option name="timeStamp" value="53" />
+          <line>52</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/voronoi_diagram.py</url>
-          <line>125</line>
-          <option name="timeStamp" value="55" />
+          <line>44</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Models.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/voronoi_diagram.py</url>
+          <line>152</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -437,6 +450,7 @@
       <configuration name="PythonConfigurationType">
         <watch expression="hull.simplices.tolist()" language="Python" />
         <watch expression="cur_left_ind" language="Python" />
+        <watch expression="main_dot_to_edge" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -445,7 +459,7 @@
     <SUITE FILE_PATH="coverage/prepLab$main.coverage" NAME="main Coverage Results" MODIFIED="1582126153202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$brute_force_alg.coverage" NAME="brute_force_alg Coverage Results" MODIFIED="1585652977086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$Models.coverage" NAME="Models Coverage Results" MODIFIED="1585823972751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/prepLab$voronoi_diagram.coverage" NAME="voronoi_diagram Coverage Results" MODIFIED="1585858406113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/prepLab$voronoi_diagram.coverage" NAME="voronoi_diagram Coverage Results" MODIFIED="1585918297150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$visualizer.coverage" NAME="visualizer Coverage Results" MODIFIED="1582725159723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/prepLab$grid_method.coverage" NAME="grid_method Coverage Results" MODIFIED="1583344079637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
