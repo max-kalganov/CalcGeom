@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf87edb0-b846-4292-9084-645acc6217b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/voronoi_diagram.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/b_spline.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ct.py" beforeDir="false" afterPath="$PROJECT_DIR$/ct.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualizer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +183,7 @@
       <workItem from="1583946829552" duration="2871000" />
       <workItem from="1585156110160" duration="253000" />
       <workItem from="1585653291850" duration="1508000" />
+      <workItem from="1586028868821" duration="1344000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -339,7 +341,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/visualizer.py</url>
-          <line>167</line>
+          <line>234</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
