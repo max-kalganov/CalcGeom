@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bf87edb0-b846-4292-9084-645acc6217b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ct.py" beforeDir="false" afterPath="$PROJECT_DIR$/ct.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/isometric_projection.py" beforeDir="false" afterPath="$PROJECT_DIR$/isometric_projection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +180,8 @@
       <workItem from="1583946829552" duration="2871000" />
       <workItem from="1585156110160" duration="253000" />
       <workItem from="1585653291850" duration="664000" />
-      <workItem from="1585933247406" duration="10476000" />
+      <workItem from="1585933247406" duration="10516000" />
+      <workItem from="1585982125475" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="rewrite grid method">
       <created>1583327279051</created>
@@ -275,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585935305546</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="write main part for IsometricProjection algorithm">
+      <created>1585944802991</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1585944802991</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,17 +301,18 @@
     <MESSAGE value="fix Shewchuk's geompreds" />
     <MESSAGE value="improve visualizer" />
     <MESSAGE value="write base for IsometricProjection" />
-    <option name="LAST_COMMIT_MESSAGE" value="write base for IsometricProjection" />
+    <MESSAGE value="write main part for IsometricProjection algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="write main part for IsometricProjection algorithm" />
   </component>
   <component name="WindowStateProjectService">
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1582730055011">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="486" y="125" width="438" height="543" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/55.27.1311.741@55.27.1311.741" timestamp="1582730055011" />
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585935305493">
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2" timestamp="1585944802927">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585935305493" />
+    <state x="83" y="27" width="955" height="741" key="CommitChangelistDialog2/55.27.1311.741@55.27.1311.741" timestamp="1585944802927" />
     <state x="175" y="84" width="1050" height="624" key="DiffContextDialog" timestamp="1585652963770">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
@@ -314,30 +321,30 @@
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="487" y="153" width="426" height="486" key="FileChooserDialogImpl/55.27.1311.741@55.27.1311.741" timestamp="1585156360292" />
-    <state width="632" height="201" key="GridCell.Tab.0.bottom" timestamp="1585944774968">
+    <state width="632" height="201" key="GridCell.Tab.0.bottom" timestamp="1585944813661">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1585944774968" />
-    <state width="632" height="201" key="GridCell.Tab.0.center" timestamp="1585944774968">
+    <state width="632" height="201" key="GridCell.Tab.0.bottom/55.27.1311.741@55.27.1311.741" timestamp="1585944813661" />
+    <state width="632" height="201" key="GridCell.Tab.0.center" timestamp="1585944813660">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1585944774968" />
-    <state width="632" height="201" key="GridCell.Tab.0.left" timestamp="1585944774968">
+    <state width="632" height="201" key="GridCell.Tab.0.center/55.27.1311.741@55.27.1311.741" timestamp="1585944813660" />
+    <state width="632" height="201" key="GridCell.Tab.0.left" timestamp="1585944813660">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1585944774967" />
-    <state width="632" height="201" key="GridCell.Tab.0.right" timestamp="1585944774968">
+    <state width="632" height="201" key="GridCell.Tab.0.left/55.27.1311.741@55.27.1311.741" timestamp="1585944813660" />
+    <state width="632" height="201" key="GridCell.Tab.0.right" timestamp="1585944813661">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state width="632" height="201" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1585944774968" />
+    <state width="632" height="201" key="GridCell.Tab.0.right/55.27.1311.741@55.27.1311.741" timestamp="1585944813661" />
     <state x="199" y="31" key="SettingsEditor" timestamp="1583938667309">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
     <state x="199" y="31" key="SettingsEditor/55.27.1311.741@55.27.1311.741" timestamp="1583938667309" />
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1585652964758">
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2" timestamp="1585944805022">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
-    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1585652964758" />
+    <state x="304" y="131" width="802" height="530" key="Vcs.Push.Dialog.v2/55.27.1311.741@55.27.1311.741" timestamp="1585944805022" />
     <state x="363" y="27" width="685" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585933712044">
       <screen x="55" y="27" width="1311" height="741" />
     </state>
