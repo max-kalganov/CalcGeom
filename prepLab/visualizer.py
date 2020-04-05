@@ -114,7 +114,7 @@ class VisualizerSpline:
     main_dots_positions: np.array = None
     dots = []
     cur_mouse_position: Optional[np.array] = None
-    last_line = None
+    lines = []
 
     def __init__(self,
                  splineClass,
@@ -146,7 +146,7 @@ class VisualizerSpline:
         self.main_dots_positions = None
         self.dots = []
         self.alg = self.alg_class()
-        self.last_line = None
+        self.lines = []
         self.__set_main_dots()
         self.canv.focus_set()
 
@@ -184,13 +184,14 @@ class VisualizerSpline:
         new_dot = np.array([event.x, event.y])
         self.main_dots_positions = np.array([[event.x, event.y]]) if self.main_dots_positions is None\
             else np.vstack([self.main_dots_positions, new_dot])
-        self.last_line = self.alg.draw_spline(self, new_dot)
+        self.lines.append(self.alg.draw_spline(self, new_dot))
 
     def stop_capturing(self, event):
         self.canv.unbind(BUTTON1)
         self.canv.unbind(STOP_KEY)
-        self.canv.delete(self.last_line)
-        self.alg.redraw_last(self)
+        self.canv.delete(self.lines.pop())
+
+        self.lines.append(self.alg.redraw_last(self))
         self.__bind_move_polygon_and_action()
 
     def __set_main_dots(self):

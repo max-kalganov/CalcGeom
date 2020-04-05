@@ -11,7 +11,9 @@ class BSpline:
         self.b = None
 
     def _change_spline(self, index: int) -> Optional[np.array]:
-        return None
+        pass
+        # if index in {0, 1}
+        # return None
 
     def _calc_spline(self, cur_b):
         t = np.linspace(0, 1, num=10)
@@ -60,7 +62,7 @@ class BSpline:
         self.b = np.vstack([self.b[:-4], last_b])
         func_points = self._calc_spline(self.b[-4:])
         shape = func_points.shape
-        vis.canv.create_line(func_points.reshape(1, shape[0] * shape[1])[0].tolist())
+        return vis.canv.create_line(func_points.reshape(1, shape[0] * shape[1])[0].tolist())
 
 
 if __name__ == '__main__':
