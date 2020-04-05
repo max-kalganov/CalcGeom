@@ -167,8 +167,11 @@ class VisualizerSpline:
                     new_pos = self.__move_dot(nearest_point_indx, cur_point)
                     indices_to_change = self.alg.get_indices_to_change(nearest_point_indx)
                     for i in indices_to_change:
-                        self.vis
+                        self.canv.delete(self.lines[i])
+
                     splines = self.alg.change_spline(new_pos, nearest_point_indx, self)
+                    for num, i in enumerate(indices_to_change):
+                        self.lines[i] = splines[num]
 
             self.cur_mouse_position = cur_point
         self.canv.bind(BUTTON1_MOVE, bind_mouse)

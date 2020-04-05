@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 import numpy as np
 
@@ -19,6 +19,15 @@ class BSpline:
         for i in spline_indices:
             all_splines.append(self._draw(self._calc_spline(self.b[3*i:(3*i+4)]), vis))
         return all_splines
+
+    def get_indices_to_change(self, point_index: int) -> List[int]:
+        pass
+
+    def _get_b_indices_to_change(self, spline_indices: List[int]) -> List[int]:
+        pass
+
+    def _calc_new_b(self, b_indices: List[int]):
+        pass
 
     def _calc_spline(self, cur_b):
         t = np.linspace(0, 1, num=10)
