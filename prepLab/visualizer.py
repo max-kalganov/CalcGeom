@@ -114,14 +114,16 @@ class VisualizerSpline:
     main_dots_positions: np.array = None
     dots = []
     cur_mouse_position: Optional[np.array] = None
+    last_line = None
 
     def __init__(self,
-                 alg,
+                 splineClass,
                  width=CANVAS_WIDTH,
                  height=CANVAS_HEIGHT):
         self.master = Tk()
         self.master.title("Calc. Geom.")
-        self.alg = alg
+        self.alg_class = splineClass
+        self.alg = splineClass()
         self.canv = Canvas(self.master,
                            width=width,
                            height=height)
@@ -143,7 +145,8 @@ class VisualizerSpline:
         self.canv.unbind(STOP_KEY)
         self.main_dots_positions = None
         self.dots = []
-
+        self.alg = self.alg_class()
+        self.last_line = None
         self.__set_main_dots()
         self.canv.focus_set()
 
@@ -179,14 +182,15 @@ class VisualizerSpline:
     def __default_capture_points(self, event):
         self.dots.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000"))
         new_dot = np.array([event.x, event.y])
-
         self.main_dots_positions = np.array([[event.x, event.y]]) if self.main_dots_positions is None\
             else np.vstack([self.main_dots_positions, new_dot])
-        self.alg.draw_spline(self, new_dot)
+        self.last_line = self.alg.draw_spline(self, new_dot)
 
     def stop_capturing(self, event):
         self.canv.unbind(BUTTON1)
         self.canv.unbind(STOP_KEY)
+        self.canv.delete(self.last_line)
+        self.alg.redraw_last(self)
         self.__bind_move_polygon_and_action()
 
     def __set_main_dots(self):
