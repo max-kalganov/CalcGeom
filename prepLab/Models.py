@@ -24,7 +24,7 @@ class VDEdge:
     second_point: Optional[FloatDot]
 
     def __init__(self, point1: Dot, point2: Dot, start_point: Optional[FloatDot] = None):
-        self.between_point = FloatDot((point1.x + point2.x)/2, (point1.y + point2.y)/2)
+        self.between_point = FloatDot((point1.x + point2.x) / 2, (point1.y + point2.y) / 2)
         self.temp = None
         self.first_point = None
         self.second_point = None
@@ -41,7 +41,7 @@ class VDEdge:
             self.slope = 0
             self.b = self.between_point.y
         else:
-            self.slope = (point1.x - point2.x)/(point2.y - point1.y)
+            self.slope = (point1.x - point2.x) / (point2.y - point1.y)
             if start_point:
                 self.b = start_point.y - self.slope * start_point.x
             else:
@@ -51,41 +51,25 @@ class VDEdge:
         if start_point:
             self.first_point = start_point
         elif self.slope is None:
-            self.first_point = FloatDot(self.between_point.x, 0)
+            self.first_point = FloatDot(self.between_point.x, float('-inf'))
         elif self.slope == 0:
-            self.first_point = FloatDot(0, self.between_point.y)
+            self.first_point = FloatDot(float('-inf'), self.between_point.y)
         else:
             if self.slope > 0:
-                x = -self.b / self.slope
-                if 0 <= x <= CANVAS_WIDTH:
-                    self.first_point = FloatDot(x, 0)
-                else:
-                    self.first_point = FloatDot(0, self.b)
-
+                self.first_point = FloatDot(float('-inf'), float('-inf'))
             else:
-                x = -self.b / self.slope
-                if 0 <= x <= CANVAS_WIDTH:
-                    self.first_point = FloatDot(x, 0)
-                else:
-                    self.first_point = FloatDot(CANVAS_WIDTH, self.slope * CANVAS_WIDTH + self.b)
+                self.first_point = FloatDot(float('inf'), float('-inf'))
 
     def _get_second_point(self):
         if self.slope is None:
-            self.second_point = FloatDot(self.between_point.x, CANVAS_HEIGHT)
+            self.second_point = FloatDot(self.between_point.x, float('inf'))
         elif self.slope == 0:
-            self.second_point = FloatDot(CANVAS_WIDTH, self.between_point.y)
+            self.second_point = FloatDot(float('inf'), self.between_point.y)
         else:
             if self.slope > 0:
-                y = self.slope * CANVAS_WIDTH + self.b
-                if 0 <= y <= CANVAS_HEIGHT:
-                    self.second_point = FloatDot(CANVAS_WIDTH, y)
-                else:
-                    self.second_point = FloatDot((CANVAS_HEIGHT - self.b) / self.slope, CANVAS_HEIGHT)
+                self.second_point = FloatDot(float('inf'), float('inf'))
             else:
-                if 0 <= self.b <= CANVAS_HEIGHT:
-                    self.second_point = FloatDot(0, self.b)
-                else:
-                    self.second_point = FloatDot((CANVAS_HEIGHT - self.b) / self.slope, CANVAS_HEIGHT)
+                self.second_point = FloatDot(float('-inf'), float('inf'))
 
     def make_first_point_border(self):
         self.temp = self.first_point
@@ -115,24 +99,13 @@ class VDEdge:
     def in_map(point: FloatDot) -> bool:
         return 0 <= point.x <= CANVAS_WIDTH and 0 <= point.y <= CANVAS_HEIGHT
 
-    @staticmethod
-    def is_not_inside(point: FloatDot) -> bool:
-        return point.x in {0, CANVAS_WIDTH} or point.y in {0, CANVAS_HEIGHT} or not VDEdge.in_map(point)
-
     def in_borders(self, point1: FloatDot) -> bool:
-        if self.is_not_inside(self.first_point) and self.is_not_inside(self.second_point):
-            return True
-
         if self.first_point.x >= self.second_point.x:
-            res = (self.is_not_inside(self.second_point) or self.second_point.x <= point1.x)\
-                   and (self.is_not_inside(self.first_point) or point1.x <= self.first_point.x)
+            res = self.first_point.x >= point1.x >= self.second_point.x
         else:
-            res = (self.is_not_inside(self.second_point) or self.second_point.x >= point1.x) \
-                  and (self.is_not_inside(self.first_point) or point1.x >= self.first_point.x)
+            res = self.first_point.x <= point1.x <= self.second_point.x
 
-        return res \
-               and (self.is_not_inside(self.first_point) or self.first_point.y <= point1.y) \
-               and (self.is_not_inside(self.second_point) or point1.y <= self.second_point.y)
+        return res and self.first_point.y <= point1.y <= self.second_point.y
 
     def func(self, x: float) -> float:
         assert self.slope is not None
