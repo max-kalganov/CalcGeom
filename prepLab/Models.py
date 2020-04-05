@@ -137,3 +137,4 @@ def intersection(edge1: VDEdge, edge2: VDEdge) -> Optional[FloatDot]:
 
     fd = FloatDot(x, y)
     return fd if edge1.in_borders(fd) and edge2.in_borders(fd) else None
+

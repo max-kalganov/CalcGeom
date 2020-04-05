@@ -54,9 +54,9 @@ class VoronoiDiagram:
         conv_s2 = self._get_vor_and_conv(s2)
         merged_conv, start_left_ind, start_right_ind, \
         finish_left_ind, finish_right_ind = self._merge_conv(conv_s1, conv_s2)
-        # self._merge_vor(conv_s1, conv_s2,
-        #                start_left_ind, start_right_ind,
-        #                finish_left_ind, finish_right_ind)
+        self._merge_vor(conv_s1, conv_s2,
+                        start_left_ind, start_right_ind,
+                        finish_left_ind, finish_right_ind)
         return merged_conv
 
     def _get_vor(self, points: List[Dot]):
@@ -115,6 +115,8 @@ class VoronoiDiagram:
             start_ind += next
             if start_ind >= len(vdedges):
                 return None, None
+
+            min_y = float('inf')
             for edge in vdedges[start_ind + 1:]:
                 intersec = intersection(cur_edge, edge)
                 if intersec is not None:
@@ -187,8 +189,39 @@ class VoronoiDiagram:
         vis.canv.pack()
         main_dot_to_edge.clear()
 
-    def proc_borders(self, edge: VDEdge) -> Tuple[FloatDot, FloatDot]:
-        pass
+    @staticmethod
+    def proc_borders(edge: VDEdge) -> Tuple[FloatDot, FloatDot]:
+
+        if edge.slope is None:
+            first_point = FloatDot(edge.between_point.x, 0)
+            second_point = FloatDot(edge.between_point.x, CANVAS_HEIGHT)
+        elif edge.slope == 0:
+            first_point = FloatDot(0, edge.between_point.y)
+            second_point = FloatDot(CANVAS_WIDTH, edge.between_point.y)
+        else:
+            if edge.slope > 0:
+                x = -edge.b / edge.slope
+                if 0 <= x <= CANVAS_WIDTH:
+                    first_point = FloatDot(x, 0)
+                else:
+                    first_point = FloatDot(0, edge.b)
+                y = edge.slope * CANVAS_WIDTH + edge.b
+                if 0 <= y <= CANVAS_HEIGHT:
+                    second_point = FloatDot(CANVAS_WIDTH, y)
+                else:
+                    second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
+
+            else:
+                x = -edge.b / edge.slope
+                if 0 <= x <= CANVAS_WIDTH:
+                    first_point = FloatDot(x, 0)
+                else:
+                    first_point = FloatDot(CANVAS_WIDTH, edge.slope * CANVAS_WIDTH + edge.b)
+                if 0 <= edge.b <= CANVAS_HEIGHT:
+                    second_point = FloatDot(0, edge.b)
+                else:
+                    second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
+        return first_point, second_point
 
 
 if __name__ == '__main__':
