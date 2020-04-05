@@ -10,10 +10,15 @@ class BSpline:
         self.points = None
         self.b = None
 
-    def _change_spline(self, index: int) -> Optional[np.array]:
-        pass
-        # if index in {0, 1}
-        # return None
+    def change_spline(self, new_point, point_index: int, vis:VisualizerSpline) -> Optional[np.array]:
+        self.points[point_index] = new_point
+        spline_indices = self.get_indices_to_change(point_index)
+        b_indices = self._get_b_indices_to_change(spline_indices)
+        self._calc_new_b(b_indices)
+        all_splines = []
+        for i in spline_indices:
+            all_splines.append(self._draw(self._calc_spline(self.b[3*i:(3*i+4)]), vis))
+        return all_splines
 
     def _calc_spline(self, cur_b):
         t = np.linspace(0, 1, num=10)
@@ -37,21 +42,20 @@ class BSpline:
             return spline
         return None
 
+    def _draw(self, func_points, vis: VisualizerSpline):
+        shape = func_points.shape
+        spline = vis.canv.create_line(func_points.reshape(1, shape[0] * shape[1])[0].tolist())
+        return spline
+
     def draw_spline(self, vis: VisualizerSpline, new_point: np.array, index: Optional[int] = None):
-        if index is None:
-            self.points = np.vstack([self.points, new_point]) if self.points is not None \
-                else np.array([new_point.tolist()])
-            func_points = self._add_spline()
-        else:
-            self.points[index] = new_point
-            func_points = self._change_spline(index)
+        self.points = np.vstack([self.points, new_point]) if self.points is not None \
+            else np.array([new_point.tolist()])
+        func_points = self._add_spline()
 
         if func_points is None:
             return None
         else:
-            shape = func_points.shape
-            spline = vis.canv.create_line(func_points.reshape(1, shape[0] * shape[1])[0].tolist())
-            return spline
+            return self._draw(func_points, vis)
 
     def redraw_last(self, vis: VisualizerSpline):
         bi_m2 = (self.points[-3] + self.points[-2])/2
@@ -61,8 +65,7 @@ class BSpline:
         last_b = np.stack([bi_m2, bi_m1, bi])
         self.b = np.vstack([self.b[:-4], last_b])
         func_points = self._calc_spline(self.b[-4:])
-        shape = func_points.shape
-        return vis.canv.create_line(func_points.reshape(1, shape[0] * shape[1])[0].tolist())
+        return self._draw(func_points, vis)
 
 
 if __name__ == '__main__':
