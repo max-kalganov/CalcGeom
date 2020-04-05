@@ -128,6 +128,8 @@ def intersection(edge1: VDEdge, edge2: VDEdge) -> Optional[FloatDot]:
         return check_vert_and_line(edge2, edge1)
 
     if edge1.slope == 0 and edge2.slope == 0:
+        assert edge1.b != edge2.b, 'Equal b, этого не должно быть, если такое случилось, ' \
+                                   'нужно учитывать, что могла вернуться точка на есконечности'
         return None if edge1.b != edge2.b else edge1.first_point
 
     x = (edge2.b - edge1.b) / (edge1.slope - edge2.slope)
