@@ -162,8 +162,9 @@ class VisualizerSpline:
             if self.cur_mouse_position is not None\
                     and self.dist(self.cur_mouse_position - cur_point) <= 10:
 
-                nearest_point_indx = int(self._get_nearest_point(cur_point))
+                nearest_point_indx = self._get_nearest_point(cur_point)
                 if nearest_point_indx is not None:
+                    nearest_point_indx = int(nearest_point_indx)
                     new_pos = self.__move_dot(nearest_point_indx, cur_point)
                     indices_to_change = self.alg.get_indices_to_change(nearest_point_indx)
                     for i in indices_to_change:
@@ -186,11 +187,13 @@ class VisualizerSpline:
         return ind if dist_arr[ind] <= POINT_RADIUS else None
 
     def __default_capture_points(self, event):
-        self.dots.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000"))
+        self.dots.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000", width=10))
         new_dot = np.array([event.x, event.y])
         self.main_dots_positions = np.array([[event.x, event.y]]) if self.main_dots_positions is None\
             else np.vstack([self.main_dots_positions, new_dot])
-        self.lines.append(self.alg.draw_spline(self, new_dot))
+        line = self.alg.draw_spline(self, new_dot)
+        if line is not None:
+            self.lines.append(line)
 
     def stop_capturing(self, event):
         self.canv.unbind(BUTTON1)
