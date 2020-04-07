@@ -2,9 +2,10 @@ import random
 from tkinter import *
 from typing import Callable, Optional, List, Iterable
 
+import numpy as np
 from Models import Dot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS, \
-    DEFAULT_NUM_OF_POINTS_CONVEXHULL
+    DEFAULT_NUM_OF_POINTS_CONVEXHULL, POINT_RADIUS
 
 
 class Visualizer:
@@ -108,6 +109,104 @@ class Visualizer:
             yield dot.x
             yield dot.y
 
+
+class VisualizerSpline:
+    main_dots_positions: np.array = None
+    dots = []
+    cur_mouse_position: Optional[np.array] = None
+    lines = []
+
+    def __init__(self,
+                 splineClass,
+                 width=CANVAS_WIDTH,
+                 height=CANVAS_HEIGHT):
+        self.master = Tk()
+        self.master.title("Calc. Geom.")
+        self.alg_class = splineClass
+        self.alg = splineClass()
+        self.canv = Canvas(self.master,
+                           width=width,
+                           height=height)
+        self.canv.pack()
+
+        self.btn = Button(self.master, text="reinit", command=self.reinit)
+        self.btn.pack()
+
+        self.__set_main_dots()
+        self.canv.focus_set()
+
+    def run_loop(self):
+        self.master.mainloop()
+
+    def reinit(self):
+        self.canv.delete("all")
+        self.canv.unbind(BUTTON1)
+        self.canv.unbind(BUTTON1_MOVE)
+        self.canv.unbind(STOP_KEY)
+        self.main_dots_positions = None
+        self.dots = []
+        self.alg = self.alg_class()
+        self.lines = []
+        self.__set_main_dots()
+        self.canv.focus_set()
+
+    def __move_dot(self, point_index: int, cur_point: np.array) -> np.array:
+        move = cur_point - self.cur_mouse_position
+        self.main_dots_positions[point_index] += move
+        self.canv.move(self.dots[point_index], move[0], move[1])
+        return self.main_dots_positions[point_index]
+
+    def __bind_move_polygon_and_action(self):
+        def bind_mouse(event):
+            cur_point = np.array([event.x, event.y])
+            if self.cur_mouse_position is not None\
+                    and self.dist(self.cur_mouse_position - cur_point) <= 10:
+
+                nearest_point_indx = self._get_nearest_point(cur_point)
+                if nearest_point_indx is not None:
+                    nearest_point_indx = int(nearest_point_indx)
+                    new_pos = self.__move_dot(nearest_point_indx, cur_point)
+                    indices_to_change = self.alg.get_indices_to_change(nearest_point_indx)
+                    for i in indices_to_change:
+                        self.canv.delete(self.lines[i])
+
+                    splines = self.alg.change_spline(new_pos, nearest_point_indx, self)
+                    for num, i in enumerate(indices_to_change):
+                        self.lines[i] = splines[num]
+
+            self.cur_mouse_position = cur_point
+        self.canv.bind(BUTTON1_MOVE, bind_mouse)
+
+    @staticmethod
+    def dist(a):
+        return np.sqrt(a[0] ** 2 + a[1] ** 2)
+
+    def _get_nearest_point(self, point: np.array) -> np.ndarray:
+        dist_arr = np.apply_along_axis(self.dist, 1, self.main_dots_positions - point)
+        ind = np.argmin(dist_arr)
+        return ind if dist_arr[ind] <= POINT_RADIUS else None
+
+    def __default_capture_points(self, event):
+        self.dots.append(self.canv.create_rectangle((event.x, event.y) * 2, outline="#ff0000", width=10))
+        new_dot = np.array([event.x, event.y])
+        self.main_dots_positions = np.array([[event.x, event.y]]) if self.main_dots_positions is None\
+            else np.vstack([self.main_dots_positions, new_dot])
+        line = self.alg.draw_spline(self, new_dot)
+        if line is not None:
+            self.lines.append(line)
+
+    def stop_capturing(self, event):
+        self.canv.unbind(BUTTON1)
+        self.canv.unbind(STOP_KEY)
+        self.canv.delete(self.lines.pop())
+
+        self.lines.append(self.alg.redraw_last(self))
+        self.__bind_move_polygon_and_action()
+
+    def __set_main_dots(self):
+        self.canv.bind(BUTTON1, self.__default_capture_points)
+        self.canv.bind(STOP_KEY, self.stop_capturing)
+        self.canv.pack()
 
 class SimpleVisualizer:
     def __init__(self,
