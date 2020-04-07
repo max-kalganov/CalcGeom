@@ -109,6 +109,43 @@ class Visualizer:
             yield dot.y
 
 
+class SimpleVisualizer:
+    def __init__(self,
+                 init_func: Callable,
+                 action_func: Callable,
+                 width=CANVAS_WIDTH,
+                 height=CANVAS_HEIGHT):
+        self.master = Tk()
+        self.master.title("Calc. Geom.")
+        self.canv = Canvas(self.master,
+                           width=width,
+                           height=height)
+        self.canv.pack()
+
+        self.action_func = action_func
+        self.init_func = init_func
+
+        self.gen_btn = Button(self.master, text="reinit", command=self.reinit)
+        self.gen_btn.pack()
+
+        self.run_btn = Button(self.master, text="run", command=self.run)
+        self.run_btn.pack()
+
+        init_func(self)
+        self.canv.focus_set()
+
+    def run_loop(self):
+        self.master.mainloop()
+
+    def run(self):
+        self.action_func(self)
+
+    def reinit(self):
+        self.canv.delete("all")
+        self.init_func(self)
+        self.canv.focus_set()
+
+
 class VisualizerConvexHull:
     def __init__(self,
                  init_func: Callable,
