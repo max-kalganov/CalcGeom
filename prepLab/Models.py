@@ -39,7 +39,7 @@ class VDEdge:
             self.b = None
         elif point1.x == point2.x:
             self.slope = 0
-            self.b = self.between_point.y
+            self.b = start_point.y if start_point else self.between_point.y
         else:
             self.slope = (point1.x - point2.x) / (point2.y - point1.y)
             if start_point:

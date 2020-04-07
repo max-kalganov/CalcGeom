@@ -112,12 +112,12 @@ class VoronoiDiagram:
                 -> Tuple[Optional[FloatDot], Optional[VDEdge]]:
             vdedges = get_vdedges(cur_point)
 
-            min_y, edge_min_y = float('inf'), None
+            min_y, edge_min_y = FloatDot(float('inf'), float('inf')), None
             for edge in vdedges:
                 if next and edge != cur_search_edge:
                     continue
                 intersec = intersection(cur_edge, edge)
-                if intersec is not None and intersec.y < min_y:
+                if intersec is not None and intersec.y < min_y.y:
                     min_y = intersec
                     edge_min_y = edge
 
@@ -137,31 +137,67 @@ class VoronoiDiagram:
             r_dist = None if intersec_r is None else dist(intersec_r, cur_edge.first_point)
             assert not (l_dist is None and r_dist is None), f"two None"
             if r_dist is None or (l_dist is not None and l_dist < r_dist):
+                self._proc_left_intersect(cur_left_point, cur_edge, e_l, intersec_l)
                 next_l = True
-                cur_edge.return_first_point_from_temp()
-                cur_edge.set_second_point(intersec_l)
 
-                #################
                 cur_left_point = next_point(left=True)
-                get_vdedges(cur_left_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
                 cur_edge.make_first_point_border()
             elif l_dist is None or (r_dist is not None and r_dist < l_dist):
-                if intersec_r.y < cur_edge.first_point.y:
-                    intersec_r = cur_edge.between_point
+                self._proc_right_intersect(cur_right_point, cur_edge, e_r, intersec_r)
                 next_r = True
-                cur_edge.return_first_point_from_temp()
-                # Bug: cur_edge.set_second_point(intersec_r)
-                cur_edge.set_second_point(intersec_r)
+
                 cur_right_point = next_point(left=False)
-                get_vdedges(cur_right_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_r)
                 cur_edge.make_first_point_border()
             else:
-                assert False, "work with l_dist = r_dist"
-        # TODO: clear extra edges
+                self._proc_left_intersect(cur_left_point, cur_edge, e_l, intersec_l)
+                self._proc_right_intersect(cur_right_point, cur_edge, e_r, intersec_r)
+                next_l, next_r = True, True
+
+                cur_left_point = next_point(left=True)
+                cur_right_point = next_point(left=False)
+
+                cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
+                cur_edge.make_first_point_border()
+
+        cur_edge.return_first_point_from_temp()
         get_vdedges(cur_left_point).append(cur_edge)
         get_vdedges(cur_right_point).append(cur_edge)
+
+    def _proc_left_intersect(self, cur_left_point: Dot, cur_edge: VDEdge, e_l: VDEdge, intersec_l: FloatDot):
+        get_vdedges(cur_left_point).append(cur_edge)
+
+        if e_l.between_point.y > intersec_l.y:
+            e_l.first_point = intersec_l
+        else:
+            e_l.second_point = intersec_l
+
+        # if e_l.first_point.x > e_l.second_point.x\
+        #     or (e_l.first_point.x == e_l.second_point.x and intersec_l.y <= e_l.between_point.y):
+        #     e_l.first_point = intersec_l
+        # else:
+        #     e_l.second_point = intersec_l
+
+        cur_edge.return_first_point_from_temp()
+        cur_edge.set_second_point(intersec_l)
+
+    def _proc_right_intersect(self, cur_right_point: Dot, cur_edge: VDEdge, e_r: VDEdge, intersec_r: FloatDot):
+        get_vdedges(cur_right_point).append(cur_edge)
+
+        if e_r.between_point.y >= intersec_r.y:
+            e_r.first_point = intersec_r
+        else:
+            e_r.second_point = intersec_r
+
+        # if e_r.first_point.x < e_r.second_point.x \
+        #         or (e_r.first_point.x == e_r.second_point.x and intersec_r.y <= e_r.between_point.y):
+        #     e_r.first_point = intersec_r
+        # else:
+        #     e_r.second_point = intersec_r
+
+        cur_edge.return_first_point_from_temp()
+        cur_edge.set_second_point(intersec_r)
 
     def _draw_vor(self, vis: VisualizerConvexHull):
         seen = set()
@@ -217,12 +253,17 @@ class VoronoiDiagram:
                         second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
             return second_point
 
-        if VDEdge.in_map(edge.first_point) or VDEdge.in_map(edge.second_point):
-            f_point = edge.first_point if VDEdge.in_map(edge.first_point) else _proc_f_point()
-            s_point = edge.second_point if VDEdge.in_map(edge.second_point) else _proc_s_point()
-        else:
-            f_point = None
-            s_point = None
+        # TODO: check, if edge not in window
+        # if VDEdge.in_map(edge.first_point) or VDEdge.in_map(edge.second_point):
+        #     f_point = edge.first_point if VDEdge.in_map(edge.first_point) else _proc_f_point()
+        #     s_point = edge.second_point if VDEdge.in_map(edge.second_point) else _proc_s_point()
+        # else:
+        #     f_point = None
+        #     s_point = None
+
+        f_point = edge.first_point if VDEdge.in_map(edge.first_point) else _proc_f_point()
+        s_point = edge.second_point if VDEdge.in_map(edge.second_point) else _proc_s_point()
+
         return f_point, s_point
 
 
