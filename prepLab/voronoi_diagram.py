@@ -111,51 +111,37 @@ class VoronoiDiagram:
         def find_edge(cur_point: Dot, cur_edge: VDEdge, cur_search_edge: VDEdge, next: bool) \
                 -> Tuple[Optional[FloatDot], Optional[VDEdge]]:
             vdedges = get_vdedges(cur_point)
-            start_ind = 0 if cur_search_edge is None else vdedges.index(cur_search_edge)
-            start_ind += next
-            if start_ind >= len(vdedges):
-                return None, None
 
-            min_y = float('inf')
-            for edge in vdedges[start_ind + 1:]:
+            min_y, edge_min_y = float('inf'), None
+            for edge in vdedges:
+                if next and edge != cur_search_edge:
+                    continue
                 intersec = intersection(cur_edge, edge)
-                if intersec is not None:
-                    return intersec, edge
-            return None, None
+                if intersec is not None and intersec.y < min_y:
+                    min_y = intersec
+                    edge_min_y = edge
+
+            return (None, None) if edge_min_y is None else (min_y, edge_min_y)
 
         cur_left_point = next_point(left=True)
         cur_right_point = next_point(left=False)
 
         cur_edge = VDEdge(cur_left_point, cur_right_point)
-        e_l = None
-        e_r = None
-        next_l = False
-        next_r = False
+        e_l, e_r, next_l, next_r = None, None, False, False
         while cur_left_point != conv_s1[finish_left_ind] or cur_right_point != conv_s2[finish_right_ind]:
             intersec_l, e_l = find_edge(cur_left_point, cur_edge, e_l, next_l)
             intersec_r, e_r = find_edge(cur_right_point, cur_edge, e_r, next_r)
-            next_l = False
-            next_r = False
-            if intersec_r is not None \
-                    and intersec_l is not None \
-                    and (not VDEdge.in_map(intersec_l) or not VDEdge.in_map(intersec_r)):
-                l_dist = 0
-                r_dist = 0
-                if intersec_l.y < intersec_r.y:
-                    r_dist += 1
-                else:
-                    l_dist += 1
-            else:
-                l_dist = None if intersec_l is None else dist(intersec_l, cur_edge.first_point)
-                r_dist = None if intersec_r is None else dist(intersec_r, cur_edge.first_point)
+            next_l, next_r = False, False
+
+            l_dist = None if intersec_l is None else dist(intersec_l, cur_edge.first_point)
+            r_dist = None if intersec_r is None else dist(intersec_r, cur_edge.first_point)
             assert not (l_dist is None and r_dist is None), f"two None"
             if r_dist is None or (l_dist is not None and l_dist < r_dist):
-                if intersec_l.y < cur_edge.first_point.y:
-                    intersec_l = cur_edge.between_point
                 next_l = True
                 cur_edge.return_first_point_from_temp()
-                # Bug: cur_edge.set_second_point(intersec_l)
                 cur_edge.set_second_point(intersec_l)
+
+                #################
                 cur_left_point = next_point(left=True)
                 get_vdedges(cur_left_point).append(cur_edge)
                 cur_edge = VDEdge(cur_left_point, cur_right_point, intersec_l)
@@ -184,44 +170,60 @@ class VoronoiDiagram:
                 if edge not in seen:
                     f_point, s_point = self.proc_borders(edge)
                     seen.add(edge)
-                    vis.canv.create_line(f_point.x, f_point.y, s_point.x,
-                                         s_point.y)
+                    if f_point is not None and s_point is not None:
+                        vis.canv.create_line(f_point.x, f_point.y, s_point.x,
+                                             s_point.y)
         vis.canv.pack()
         main_dot_to_edge.clear()
 
     @staticmethod
     def proc_borders(edge: VDEdge) -> Tuple[FloatDot, FloatDot]:
-
-        if edge.slope is None:
-            first_point = FloatDot(edge.between_point.x, 0)
-            second_point = FloatDot(edge.between_point.x, CANVAS_HEIGHT)
-        elif edge.slope == 0:
-            first_point = FloatDot(0, edge.between_point.y)
-            second_point = FloatDot(CANVAS_WIDTH, edge.between_point.y)
-        else:
-            if edge.slope > 0:
-                x = -edge.b / edge.slope
-                if 0 <= x <= CANVAS_WIDTH:
-                    first_point = FloatDot(x, 0)
-                else:
-                    first_point = FloatDot(0, edge.b)
-                y = edge.slope * CANVAS_WIDTH + edge.b
-                if 0 <= y <= CANVAS_HEIGHT:
-                    second_point = FloatDot(CANVAS_WIDTH, y)
-                else:
-                    second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
-
+        def _proc_f_point() -> FloatDot:
+            if edge.slope is None:
+                first_point = FloatDot(edge.between_point.x, 0)
+            elif edge.slope == 0:
+                first_point = FloatDot(0, edge.between_point.y)
             else:
-                x = -edge.b / edge.slope
-                if 0 <= x <= CANVAS_WIDTH:
-                    first_point = FloatDot(x, 0)
+                if edge.slope > 0:
+                    x = -edge.b / edge.slope
+                    if 0 <= x <= CANVAS_WIDTH:
+                        first_point = FloatDot(x, 0)
+                    else:
+                        first_point = FloatDot(0, edge.b)
                 else:
-                    first_point = FloatDot(CANVAS_WIDTH, edge.slope * CANVAS_WIDTH + edge.b)
-                if 0 <= edge.b <= CANVAS_HEIGHT:
-                    second_point = FloatDot(0, edge.b)
+                    x = -edge.b / edge.slope
+                    if 0 <= x <= CANVAS_WIDTH:
+                        first_point = FloatDot(x, 0)
+                    else:
+                        first_point = FloatDot(CANVAS_WIDTH, edge.slope * CANVAS_WIDTH + edge.b)
+            return first_point
+
+        def _proc_s_point() -> FloatDot:
+            if edge.slope is None:
+                second_point = FloatDot(edge.between_point.x, CANVAS_HEIGHT)
+            elif edge.slope == 0:
+                second_point = FloatDot(CANVAS_WIDTH, edge.between_point.y)
+            else:
+                if edge.slope > 0:
+                    y = edge.slope * CANVAS_WIDTH + edge.b
+                    if 0 <= y <= CANVAS_HEIGHT:
+                        second_point = FloatDot(CANVAS_WIDTH, y)
+                    else:
+                        second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
                 else:
-                    second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
-        return first_point, second_point
+                    if 0 <= edge.b <= CANVAS_HEIGHT:
+                        second_point = FloatDot(0, edge.b)
+                    else:
+                        second_point = FloatDot((CANVAS_HEIGHT - edge.b) / edge.slope, CANVAS_HEIGHT)
+            return second_point
+
+        if VDEdge.in_map(edge.first_point) or VDEdge.in_map(edge.second_point):
+            f_point = edge.first_point if VDEdge.in_map(edge.first_point) else _proc_f_point()
+            s_point = edge.second_point if VDEdge.in_map(edge.second_point) else _proc_s_point()
+        else:
+            f_point = None
+            s_point = None
+        return f_point, s_point
 
 
 if __name__ == '__main__':
