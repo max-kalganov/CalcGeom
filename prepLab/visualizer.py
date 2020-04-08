@@ -6,6 +6,7 @@ import numpy as np
 from Models import Dot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS, \
     DEFAULT_NUM_OF_POINTS_CONVEXHULL, POINT_RADIUS
+from utils import dist
 
 
 class Visualizer:
@@ -160,7 +161,7 @@ class VisualizerSpline:
         def bind_mouse(event):
             cur_point = np.array([event.x, event.y])
             if self.cur_mouse_position is not None\
-                    and self.dist(self.cur_mouse_position - cur_point) <= 10:
+                    and dist(self.cur_mouse_position - cur_point) <= 10:
 
                 nearest_point_indx = self._get_nearest_point(cur_point)
                 if nearest_point_indx is not None:
@@ -177,12 +178,8 @@ class VisualizerSpline:
             self.cur_mouse_position = cur_point
         self.canv.bind(BUTTON1_MOVE, bind_mouse)
 
-    @staticmethod
-    def dist(a):
-        return np.sqrt(a[0] ** 2 + a[1] ** 2)
-
     def _get_nearest_point(self, point: np.array) -> np.ndarray:
-        dist_arr = np.apply_along_axis(self.dist, 1, self.main_dots_positions - point)
+        dist_arr = np.apply_along_axis(dist, 1, self.main_dots_positions - point)
         ind = np.argmin(dist_arr)
         return ind if dist_arr[ind] <= POINT_RADIUS else None
 
@@ -207,6 +204,7 @@ class VisualizerSpline:
         self.canv.bind(BUTTON1, self.__default_capture_points)
         self.canv.bind(STOP_KEY, self.stop_capturing)
         self.canv.pack()
+
 
 class SimpleVisualizer:
     def __init__(self,
