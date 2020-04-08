@@ -27,7 +27,7 @@ class GrahamScan:
         self.__init__()
         self.init_field(vis)
 
-    def _tan(self, point: Tuple[float, float]) -> Tuple[float, float]:
+    def _tan_and_dist(self, point: Tuple[float, float]) -> Tuple[float, float]:
         """
         Подсчет тангенса между точкой start_point и point
         :param point: входная точка
@@ -57,7 +57,7 @@ class GrahamScan:
         self.start_point = x_values[min_x_ind], y_values[min_x_ind]
         self.all_points = SortedList(zip(x_values[x_values != self.start_point[0]],
                                          y_values[y_values != self.start_point[1]]),
-                                     key=self._tan)
+                                     key=self._tan_and_dist)
 
         for x, y in zip(x_values, y_values):
             if x in seen:
