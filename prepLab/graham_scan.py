@@ -11,21 +11,37 @@ from visualizer import SimpleVisualizer
 
 class GrahamScan:
     def __init__(self):
+        """
+        Инициализация атрибутов
+        """
         self.all_points: Optional[SortedList] = None
         self.conv = []
         self.start_point: Optional[Tuple[int, int]] = None
         self.cur_index: Optional[int] = None
 
     def full_init(self, vis: SimpleVisualizer):
+        """
+        Метод необходим для корректной работы кнопки reinit
+        :param vis: объект визуализатора, который выполняет функцию отображения
+        """
         self.__init__()
         self.init_field(vis)
 
     def _tan(self, point: Tuple[float, float]) -> Tuple[float, float]:
+        """
+        Подсчет тангенса между точкой start_point и point
+        :param point: входная точка
+        :return: значение тангенса, дистанция до точки (для т
+        """
+        dist = dist_between_points(self.start_point, point)
+        tan = None
         if point == self.start_point:
-            return 0, 0
-        if point[0] == self.start_point[0] and point[1] != self.start_point[1]:
-            return (1 if point[1] > self.start_point[1] else -1) * np.inf, point[1]
-        return (point[1] - self.start_point[1]) / (point[0] - self.start_point[0]), dist_between_points(self.start_point, point)
+            tan = 0
+        elif point[0] == self.start_point[0] and point[1] != self.start_point[1]:
+            tan = (1 if point[1] > self.start_point[1] else -1) * np.inf
+        else:
+            tan = (point[1] - self.start_point[1]) / (point[0] - self.start_point[0]),
+        return tan, dist
 
     def init_field(self, vis: SimpleVisualizer):
         seen = {}
