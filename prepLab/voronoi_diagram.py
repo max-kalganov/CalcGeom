@@ -1,6 +1,6 @@
 import random
 from Models import Dot
-from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS_CONVEXHULL
+from ct import CANVAS_WIDTH, CANVAS_HEIGHT, DEFAULT_NUM_OF_POINTS_SMALL
 from visualizer import VisualizerConvexHull
 import numpy as np
 
@@ -9,7 +9,7 @@ class VoronoiDiagram:
     def __init__(self):
         self.windows_width = 10
 
-    def init_points_function(self, obj: VisualizerConvexHull, number_of_points=DEFAULT_NUM_OF_POINTS_CONVEXHULL):
+    def init_points_function(self, obj: VisualizerConvexHull, number_of_points=DEFAULT_NUM_OF_POINTS_SMALL):
         self.all_points = []
         seen = {}
         x_values = np.random.normal(loc=CANVAS_WIDTH//2, scale=CANVAS_WIDTH//8, size=number_of_points)

@@ -5,7 +5,7 @@ from typing import Callable, Optional, List, Iterable
 import numpy as np
 from Models import Dot
 from ct import CANVAS_WIDTH, CANVAS_HEIGHT, BUTTON1, BUTTON1_MOVE, STOP_KEY, DEFAULT_NUM_OF_POINTS, \
-    DEFAULT_NUM_OF_POINTS_CONVEXHULL, POINT_RADIUS
+    DEFAULT_NUM_OF_POINTS_SMALL, POINT_RADIUS
 from utils import dist
 
 
@@ -283,7 +283,7 @@ class VisualizerConvexHull:
             if entry < 0:
                 raise Exception
         except Exception:
-            entry = DEFAULT_NUM_OF_POINTS_CONVEXHULL
+            entry = DEFAULT_NUM_OF_POINTS_SMALL
         self.init_func(self, entry)
         self.canv.focus_set()
 
